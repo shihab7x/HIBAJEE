@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIBAJEE Clone Practice</title>
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mobile Container */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #1a1a1a;
+            min-height: 100vh;
+            padding: 12px;
+            box-sizing: border-box;
+            padding-bottom: 80px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 1. Navbar Section */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0 10px 0;
+        }
+        .logo {
+            color: #fbbf24;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .nav-right-side {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .login-inputs {
+            display: flex;
+            gap: 6px;
+        }
+        .login-inputs input {
+            background-color: #333333;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            padding: 6px 8px;
+            color: #fff;
+            width: 85px;
+            font-size: 12px;
+        }
+
+        /* 3-Dot / Hamburger Menu Button */
+        .menu-dot-btn {
+            background: none;
+            border: none;
+            color: #fbbf24;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Logged In User Profile Dashboard (Navbar) */
+        .user-profile-nav {
+            display: none; 
+            align-items: center;
+            gap: 10px;
+        }
+        .user-welcome {
+            font-size: 13px;
+            color: #fff;
+        }
+        .user-welcome span {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        .logout-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 2. Authentication Buttons Row */
+        .auth-actions-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .auth-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: opacity 0.2s;
+        }
+        .auth-btn:active {
+            opacity: 0.8;
+        }
+        .login-action-btn {
+            background-color: #fbbf24;
+            color: #000000;
+        }
+        .register-action-btn {
+            background-color: #3b82f6;
+            color: #ffffff;
+        }
+
+        /* 3. Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .offer-badge {
+            background-color: #fbbf24;
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .banner-title {
+            font-size: 19px;
+            font-weight: 900;
+            margin: 12px 0 6px 0;
+            letter-spacing: 0.5px;
+        }
+        .banner-sub {
+            font-size: 12px;
+            color: #fca5a5;
+            margin: 0;
+        }
+
+        /* 4. Notice Bar */
+        .notice-bar {
+            background-color: #242424;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .notice-title {
+            color: #fbbf24;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+        .notice-bar marquee {
+            color: #cccccc;
+        }
+
+        /* 5. Mega Jackpot */
+        .jackpot-box {
+            background-color: #242424;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .jackpot-header {
+            color: #fbbf24;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .jackpot-amount {
+            font-size: 26px;
+            color: #fbbf24;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* 6. Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .grid-item {
+            background-color: #242424;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .grid-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+        .grid-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        /* Hot Sports Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .view-all {
+            color: #fbbf24;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .sports-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .sports-card {
+            background-color: #242424;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .sports-main-icon img {
+            width: 45px;
+            height: 45px;
+            margin-top: 25px;
+        }
+        .sports-main-icon {
+            text-align: center;
+        }
+        .sports-footer {
+            background-color: #1a1a1a;
+            padding: 10px;
+        }
+        .sports-footer h4 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+        }
+        .sports-footer p {
+            margin: 0;
+            font-size: 11px;
+            color: #888888;
+        }
+
+        /* 8. Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background-color: #111111;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            border-top: 1px solid #222222;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            color: #888888;
+        }
+        .nav-item span {
+            font-size: 10px;
+            display: block;
+            margin-top: 2px;
+        }
+        .nav-item.active {
+            color: #fbbf24;
+        }
+        .nav-item.deposit-btn {
+            background-color: #fbbf24;
+            color: #000000;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: -4px;
+        }
+
+        /* MODALS STYLE */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .custom-modal {
+            background-color: #242424;
+            border: 1px solid #fbbf24;
+            border-radius: 12px;
+            width: 85%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform transform 0.3s ease;
+        }
+        .modal-overlay.show .custom-modal {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            background-color: #fbbf24;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 25px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #fbbf24;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 10px;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        /* Captcha Display */
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .captcha-code {
+            background: linear-gradient(45deg, #333, #555);
+            color: #fbbf24;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 4px;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 18px;
+            user-select: none;
+            border: 1px dashed #fbbf24;
+        }
+        .refresh-captcha {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* ========================================= */
+        /* 🆕 SIDE NAVIGATION DRAWER (MENU) STYLES    */
+        /* ========================================= */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .sidebar-drawer {
+            position: absolute;
+            top: 0;
+            left: -280px; /* Start hidden on left */
+            width: 280px;
+            height: 100%;
+            background-color: #1e1e1e;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .sidebar-overlay.open .sidebar-drawer {
+            left: 0; /* Slide in */
+        }
+        
+        /* Sidebar Action Area Header */
+        .sidebar-header {
+            background-color: #2a2a2a;
+            padding: 20px 15px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        .sidebar-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* Menu Rows Style */
+        .sidebar-menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border-bottom: 1px solid #262626;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+            color: #dddddd;
+            font-weight: bold;
+        }
+        .sidebar-item:active {
+            background-color: #2c2c2c;
+        }
+        .sidebar-icon {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-item .arrow {
+            margin-left: auto;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarMenu" onclick="closeSidebar(event)">
+        <div class="sidebar-drawer" id="sidebarDrawer">
+            <div class="sidebar-header">
+                <div class="sidebar-close" onclick="toggleSidebar()">✕</div>
+                <div class="logo" style="margin-bottom: 10px;">HIBAJEE</div>
+                
+                <button class="auth-btn login-action-btn" id="sideLoginBtn" onclick="toggleSidebar(); handleLogin();" style="font-size:12px; padding:6px;">লগইন</button>
+                <button class="auth-btn register-action-btn" id="sideRegBtn" onclick="toggleSidebar(); handleRegisterClick();" style="font-size:12px; padding:6px; margin-top:5px;">নিবন্ধন</button>
+                <div id="sideUserLabel" style="display:none; color:#fbbf24; font-weight:bold; font-size:14px; padding: 5px 0;">👤 ইউজার অনলাইন</div>
+            </div>
+            
+            <ul class="sidebar-menu-list">
+                <li class="sidebar-item" onclick="handleSidebarClick('ডিপোজিট')">
+                    <span class="sidebar-icon">💰</span><span>ডিপোজিট</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('উত্তোলন করুন')">
+                    <span class="sidebar-icon">📤</span><span>উত্তোলন করুন</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('প্রমোশন')">
+                    <span class="sidebar-icon">🎁</span><span>প্রমোশন</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('শেয়ার')">
+                    <span class="sidebar-icon">🔗</span><span>শেয়ার</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('পুরস্কার কেন্দ্র')">
+                    <span class="sidebar-icon">🏆</span><span>পুরস্কার কেন্দ্র</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('খেলার কেন্দ্র')">
+                    <span class="sidebar-icon">🎮</span><span>খেলার কেন্দ্র</span><span class="arrow">▼</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('সদস্য')">
+                    <span class="sidebar-icon">👤</span><span>সদস্য</span><span class="arrow">▼</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('অ্যাপ ডাউনলোড')">
+                    <span class="sidebar-icon">📥</span><span>অ্যাপ ডাউনলোড</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('গ্রাহক সেবা')">
+                    <span class="sidebar-icon">🎧</span><span>গ্রাহক সেবা</span>
+                </li>
+                <li class="sidebar-item" onclick="handleSidebarClick('সাহায্য কেন্দ্র')">
+                    <span class="sidebar-icon">ℹ️</span><span>সাহায্য কেন্দ্র</span>
+                </li>
+                <li class="sidebar-item" style="justify-content: center; background-color: #111; margin-top: 10px;">
+                    <span>🇧🇩 বাংলা</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="app-container">
+        
+        <div class="modal-overlay" id="customModal">
+            <div class="custom-modal">
+                <div class="modal-icon" id="modalIcon" style="font-size:40px; margin-bottom:10px;">📢</div>
+                <div class="modal-title" id="modalTitle" style="font-size:18px; color:#fbbf24; font-weight:bold; margin-bottom:8px;">Notification</div>
+                <div class="modal-text" id="modalText" style="font-size:14px; color:#ccc; margin-bottom:20px;">Message...</div>
+                <button class="modal-close-btn" onclick="closeModal('customModal')">OK</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="registerModal">
+            <div class="custom-modal">
+                <h3 style="color:#fbbf24; margin-top:0;">Create Account</h3>
+                
+                <div class="form-group">
+                    <label>Username (Letters & Numbers Mixed)</label>
+                    <input type="text" id="regUser" placeholder="e.g., hiba123">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password (Minimum 6 Characters)</label>
+                    <input type="password" id="regPass" placeholder="Enter secure password">
+                </div>
+                
+                <div class="form-group">
+                    <label>Security Captcha</label>
+                    <div class="captcha-container">
+                        <div class="captcha-code" id="captchaDisplay">ABCD</div>
+                        <button class="refresh-captcha" onclick="generateCaptcha()">🔄</button>
+                    </div>
+                    <input type="text" id="regCaptchaInput" placeholder="Enter code above" style="margin-top:8px;">
+                </div>
+
+                <button class="modal-close-btn" style="background-color:#3b82f6; color:#fff;" onclick="submitRegistration()">Submit Register</button>
+                <button class="modal-close-btn" style="background-color:#555; color:#fff;" onclick="closeModal('registerModal')">Cancel</button>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="logo">HIBAJEE</div>
+            
+            <div class="nav-right-side">
+                <div class="login-inputs" id="guestNav">
+                    <input type="text" id="usernameInput" placeholder="Username">
+                    <input type="password" id="passwordInput" placeholder="Password">
+                </div>
+
+                <div class="user-profile-nav" id="userNav">
+                    <div class="user-welcome">👤 Hi, <span id="displayUsername">User</span></div>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+
+                <button class="menu-dot-btn" onclick="toggleSidebar()">⋮</button>
+            </div>
+        </nav>
+
+        <div class="auth-actions-row" id="authButtonsRow">
+            <button class="auth-btn login-action-btn" onclick="handleLogin()">Login</button>
+            <button class="auth-btn register-action-btn" onclick="handleRegisterClick()">Register</button>
+        </div>
+
+        <div class="hero-banner">
+            <span class="offer-badge">DEPOSIT OFFER</span>
+            <h1 class="banner-title">100% FIRST DEPOSIT BONUS</h1>
+            <p class="banner-sub">Double your balance on your first deposit!</p>
+        </div>
+
+        <div class="notice-bar">
+            <span class="notice-title">📢 Notice:</span>
+            <marquee scrollamount="4">Welcome to HIBA. Enjoy your favorite games here!</marquee>
+        </div>
+
+        <div class="jackpot-box">
+            <div class="jackpot-header">🏆 HIBAJEE MEGA JACKPOT 🏆</div>
+            <div class="jackpot-amount" id="jackpotAmount">৳ ৮,৭৪২,৯৮৬.৩৮</div>
+        </div>
+
+        <div class="category-grid">
+            <div class="grid-item" onclick="openNotificationModal('⚽', 'SPORTS SECTION', 'Live match betting markets will load here.')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/5351/5351486.png" alt="Sports"></div>
+                <div class="grid-label">SPORTS</div>
+            </div>
+            <div class="grid-item" onclick="openNotificationModal('🎰', 'SLOTS GAME', 'Premium high-payout slot machine games are loading...')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/10543/10543301.png" alt="Slots"></div>
+                <div class="grid-label">SLOTS</div>
+            </div>
+            <div class="grid-item" onclick="openNotificationModal('🃏', 'LIVE CASINO', 'Connect to live dealers. Blackjack rooms are ready.')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/1006/1006622.png" alt="Casino"></div>
+                <div class="grid-label">CASINO</div>
+            </div>
+            <div class="grid-item" onclick="openNotificationModal('🎯', 'LOTTERY DRAW', 'Check the latest daily lottery tickets result pools.')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/2371/2371701.png" alt="Lottery"></div>
+                <div class="grid-label">LOTTERY</div>
+            </div>
+            <div class="grid-item" onclick="openNotificationModal('🎮', 'ESPORTS BETTING', 'Wager on Dota 2, CS:GO, and PUBG live tournament events.')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/686/686588.png" alt="Esports"></div>
+                <div class="grid-label">ESPORTS</div>
+            </div>
+            <div class="grid-item" onclick="openNotificationModal('🏇', 'HORSE RACING', 'International horse racing tracks live streaming.')">
+                <div class="grid-icon"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132649.png" alt="Racing"></div>
+                <div class="grid-label">RACING</div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <div class="section-title"><span>🔥</span> HOT SPORTS</div>
+            <div class="view-all" onclick="openNotificationModal('🔥', 'HOT SPORTS LIST', 'Loading premium betting leagues.')">View All</div>
+        </div>
+
+        <div class="sports-container">
+            <div class="sports-card" onclick="openNotificationModal('⚽', 'SABA SPORTS', 'Redirecting to Saba Sports platform.')">
+                <div class="sports-main-icon"><img src="https://cdn-icons-png.flaticon.com/512/5351/5351486.png" alt="Saba"></div>
+                <div class="sports-footer">
+                    <h4>Saba Sports</h4>
+                    <p>Cricket & Football</p>
+                </div>
+            </div>
+            <div class="sports-card" onclick="openNotificationModal('🏏', 'EXCHANGE CRICKET', 'Connecting to Live Cricket Betting Exchange.')">
+                <div class="sports-main-icon"><img src="https://cdn-icons-png.flaticon.com/512/9312/9312334.png" alt="Cricket"></div>
+                <div class="sports-footer">
+                    <h4>Exchange Cricket</h4>
+                    <p>Live Premium Match</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="openNotificationModal('🏠', 'HOME', 'You are already on the Home dashboard.')">🏠<span>Home</span></div>
+            <div class="nav-item" onclick="openNotificationModal('🎁', 'PROMOTIONS', 'Explore active Welcome Bonuses.')">🎁<span>Promo</span></div>
+            <div class="nav-item deposit-btn" onclick="openNotificationModal('💵', 'DEPOSIT METHODS', 'Select payment method: bKash or Nagad.')">💵<span>Deposit</span></div>
+            <div class="nav-item" onclick="openNotificationModal('💬', 'LIVE SUPPORT', 'Connecting to 24/7 LiveChat Support.')">💬<span>Support</span></div>
+            <div class="nav-item" onclick="openNotificationModal('👤', 'MY ACCOUNT', 'Account Profile Dashboard.')">👤<span>Account</span></div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. LIVE JACKPOT COUNTER
+        let jackpotValue = 8742986.38;
+
+        function convertToBengali(num) {
+            const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            return num.toString().replace(/\d/g, digit => bengaliDigits[digit]);
+        }
+
+        function formatCurrency(amount) {
+            let parts = amount.toFixed(2).split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
+        setInterval(() => {
+            jackpotValue += Math.random() * 15;
+            document.getElementById('jackpotAmount').innerText = "৳ " + convertToBengali(formatCurrency(jackpotValue));
+        }, 1500);
+
+
+        // 2. MODAL CONTROLS
+        function openNotificationModal(icon, title, text) {
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            document.getElementById('customModal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+
+        // 🆕 3. SIDEBAR DRAWER MENU CONTROLS
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarMenu');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebar(e) {
+            // Closes only if user clicks the dark background overlay outside the drawer
+            if (e.target.id === 'sidebarMenu') {
+                toggleSidebar();
+            }
+        }
+
+        function handleSidebarClick(menuName) {
+            toggleSidebar(); // Close sidebar first
+            openNotificationModal('📋', menuName.toUpperCase(), menuName + ' অপশনটি শীঘ্রই চালু করা হবে।');
+        }
+
+
+        // 4. VALIDATION HELPER
+        function isValidUsername(username) {
+            const hasLetter = /[a-zA-Z]/.test(username);
+            const hasNumber = /[0-9]/.test(username);
+            return hasLetter && hasNumber;
+        }
+
+
+        // 5. INTERFACE CHANGER FUNCTIONS
+        function showUserInterface(username) {
+            document.getElementById('guestNav').style.display = 'none';
+            document.getElementById('authButtonsRow').style.display = 'none';
+            
+            document.getElementById('displayUsername').innerText = username;
+            document.getElementById('userNav').style.display = 'flex';
+
+            // Update inside Sidebar as well
+            document.getElementById('sideLoginBtn').style.display = 'none';
+            document.getElementById('sideRegBtn').style.display = 'none';
+            document.getElementById('sideUserLabel').style.display = 'block';
+            document.getElementById('sideUserLabel').innerText = "👤 " + username;
+        }
+
+        function showGuestInterface() {
+            document.getElementById('usernameInput').value = "";
+            document.getElementById('passwordInput').value = "";
+            
+            document.getElementById('guestNav').style.display = 'flex';
+            document.getElementById('authButtonsRow').style.display = 'flex';
+            
+            document.getElementById('userNav').style.display = 'none';
+
+            // Restore Sidebar view
+            document.getElementById('sideLoginBtn').style.display = 'block';
+            document.getElementById('sideRegBtn').style.display = 'block';
+            document.getElementById('sideUserLabel').style.display = 'none';
+        }
+
+
+        // 6. LOGIN AUTHENTICATION LOGIC
+        function handleLogin() {
+            const user = document.getElementById('usernameInput').value.trim();
+            const pass = document.getElementById('passwordInput').value;
+
+            if(user === "" || pass === "") {
+                openNotificationModal('⚠️', 'INPUT ERROR', 'ইউজারনেম এবং পাসওয়ার্ড লিখুন!');
+                return;
+            }
+
+            let savedUser = localStorage.getItem('registered_username');
+            let savedPass = localStorage.getItem('registered_password');
+
+            if (!savedUser) {
+                openNotificationModal('❌', 'LOGIN DENIED', 'কোনো অ্যাকাউন্ট পাওয়া যায়নি! আগে Register করুন।');
+                return;
+            }
+
+            if (user === savedUser && pass === savedPass) {
+                showUserInterface(user);
+                openNotificationModal('🔐', 'LOGIN SUCCESS', 'স্বাগতম, ' + user + '! সফলভাবে লগইন হয়েছে।');
+            } else {
+                openNotificationModal('❌', 'ACCESS DENIED', 'ভুল ইউজারনেম অথবা পাসওয়ার্ড!');
+            }
+        }
+
+
+        // 7. LOGOUT FUNCTION
+        function handleLogout() {
+            showGuestInterface();
+            openNotificationModal('👋', 'LOGGED OUT', 'সফলভাবে লগআউট করা হয়েছে।');
+        }
+
+
+        // 8. CAPTCHA GENERATOR LOGIC
+        let currentCaptchaCode = "";
+        
+        function generateCaptcha() {
+            const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let code = "";
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptchaCode = code;
+            document.getElementById('captchaDisplay').innerText = code;
+        }
+
+        function handleRegisterClick() {
+            generateCaptcha();
+            document.getElementById('regUser').value = "";
+            document.getElementById('regPass').value = "";
+            document.getElementById('regCaptchaInput').value = "";
+            document.getElementById('registerModal').classList.add('show');
+        }
+
+
+        // 9. REGISTRATION SUBMIT
+        function submitRegistration() {
+            const user = document.getElementById('regUser').value.trim();
+            const pass = document.getElementById('regPass').value;
+            const captchaInput = document.getElementById('regCaptchaInput').value.trim().toUpperCase();
+
+            if(user === "" || pass === "" || captchaInput === "") {
+                alert("সবগুলো তথ্য সঠিকভাবে পূরণ করুন!");
+                return;
+            }
+
+            if(!isValidUsername(user)) {
+                alert("রেজিস্ট্রেশন ব্যর্থ:\nইউজারনেমে অবশ্যই অক্ষর এবং সংখ্যা থাকতে হবে (যেমন: hiba123)");
+                return;
+            }
+
+            if(pass.length < 6) {
+                alert("রেজিস্ট্রেশন ব্যর্থ:\nপাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
+                return;
+            }
+
+            if(captchaInput !== currentCaptchaCode) {
+                alert("রেজিস্ট্রেশন ব্যর্থ:\nক্যাপচা কোডটি মিলেনি!");
+                generateCaptcha(); 
+                return;
+            }
+
+            localStorage.setItem('registered_username', user);
+            localStorage.setItem('registered_password', pass);
+
+            closeModal('registerModal');
+            showUserInterface(user);
+            
+            openNotificationModal('🎉', 'SUCCESS', 'অ্যাকাউন্ট তৈরি এবং অটোমেটিক লগইন সফল: ' + user);
+        }
+    </script>
+</body>
+  </html>
